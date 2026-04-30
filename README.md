@@ -73,13 +73,11 @@ The following are professional placeholder examples that represent the type of f
 
 ## Visualizations
 
-Below are placeholder references for project screenshots. Replace the paths with actual image assets when available.
+## Visualizations
 
-![Sales Trend](image1.png)
-![Category Performance](image2.png)
-![Regional Analysis Dashboard](image3.png)
-![Forecast Output](image4.png)
-![Additional Result](image5.png)
+![Sales Trend](images/sales_trend.png)
+![Dashboard](images/dashboard.png)
+![Forecast](images/forecast.png)
 
 ## Result Screenshots
 
