@@ -1,108 +1,178 @@
-# Sales Analysis Platform
+## 🚀 Live Demo
+🔗 [View Project](https://data-sense-beta.vercel.app)
 
-A full-stack sales analysis dashboard with:
+# Sales Analysis and Visualization Using Machine Learning
 
-- Frontend: HTML, CSS, JavaScript
-- Backend: Node.js + Express
-- Analysis engine: Python + Pandas + Matplotlib + Seaborn + python-pptx
+A professional sales analytics project designed to transform raw sales data into actionable business intelligence. The application supports data ingestion, cleaning, exploratory analysis, automated chart generation, and predictive forecasting to help users understand historical performance and emerging trends. It is suitable for evaluating sales growth, identifying high-performing segments, and estimating future demand using time-based forecasting logic. This makes it relevant for retail, distribution, e-commerce, and business reporting use cases where faster decision-making depends on clear, data-driven insights.
+
+## Table of Contents
+
+- [Project Description](#project-description)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Machine Learning Details](#machine-learning-details)
+- [Results / Insights](#results--insights)
+- [Visualizations](#visualizations)
+- [Project Structure](#project-structure)
+- [How to Run](#how-to-run)
+- [Future Improvements](#future-improvements)
+
+## Project Description
+
+This project analyzes sales datasets to uncover meaningful trends, summarize key business metrics, and present findings through clear visualizations. It combines data preprocessing, descriptive analytics, and lightweight forecasting to support practical decision-making. Users can upload CSV or Excel sales files, inspect cleaned outputs, generate charts, and extract insights such as top-performing categories, monthly trends, and future sales projections. The overall workflow is designed to simulate a real-world analytics pipeline used by business analysts and operations teams.
+
+## Features
+
+- Data cleaning to handle missing values, duplicate records, and inconsistent file formats.
+- Data visualization through automatically generated charts for trends, category performance, and distribution analysis.
+- Machine learning based forecasting for projecting future sales using historical time-series behavior.
+- Insight extraction to surface business observations, risk indicators, and decision-ready summaries.
+- KPI generation for metrics such as total sales, average order value, unique segments, and performance concentration.
+- Export-friendly reporting workflow for business presentations and stakeholder reviews.
+
+## Tech Stack
+
+### Core Technologies
+
+- Python
+- Node.js
+- Express.js
+- HTML, CSS, JavaScript
+
+### Data and Analytics Libraries
+
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- OpenPyXL
+- Python-PPTX
+
+### Machine Learning / Forecasting
+
+- Custom ridge regression with lag-based time-series features
+- Linear regression style trend baseline for fallback forecasting
+- Scikit-learn: not currently required in this implementation
+
+## Machine Learning Details
+
+The forecasting workflow uses a ridge regression based lag model built on historical monthly sales behavior. This approach was chosen because it is lightweight, interpretable, and well-suited for structured business datasets where recent performance, seasonality, and short-term momentum influence the next prediction. The model uses lag features, month and quarter signals, and simple temporal patterns to estimate future sales.
+
+For cases where the dataset is too limited or too noisy for the trained lag model, the project falls back to a simpler linear trend baseline. Forecast quality is assessed using validation-based error measurement, including weighted absolute percentage error (WAPE), along with qualitative confidence signals such as high, medium, or low. This provides a practical and explainable prediction workflow rather than a black-box approach.
+
+## Results / Insights
+
+The following are professional placeholder examples that represent the type of findings this project can generate from a sales dataset:
+
+- Sales peaked in **[Month]**, indicating a strong seasonal uplift during that period.
+- The top-performing category was **[Category]**, contributing the highest share of total revenue.
+- The strongest region was **[Region]**, outperforming other territories in both volume and value.
+- A noticeable drop in sales was observed in **[Month/Quarter]**, suggesting possible demand volatility or operational gaps.
+- The model achieved approximately **[82-88]%** forecasting reliability on validation-style evaluation, depending on dataset quality and historical depth.
+- A small number of segments accounted for a disproportionately high share of sales, highlighting revenue concentration risk.
+
+## Visualizations
+
+Below are placeholder references for project screenshots. Replace the paths with actual image assets when available.
+
+![Sales Trend](path/to/image.png)
+![Category Performance](path/to/image.png)
+![Regional Analysis Dashboard](path/to/image.png)
+![Forecast Output](path/to/image.png)
+
+## Result Screenshots
+
+The following images are sample outputs generated by the project during sales trend analysis.
+
+![Sales Analysis Result 1](backend/outputs/sales_sample_trend_2b470bda.png)
+![Sales Analysis Result 2](backend/outputs/sales_sample_trend_322569a3.png)
 
 ## Project Structure
 
-- `frontend/` - dashboard UI
-- `backend/` - Express server and upload handling
-- `python/` - data cleaning, analysis, and chart generation
-- `sample-data/` - example dataset for testing
+```text
+.
+├── backend/              # Express server, upload handling, persistence, outputs
+├── frontend/             # Frontend dashboard UI
+├── python/               # Data cleaning, analysis, charting, forecasting
+├── sample-data/          # Example datasets for testing
+├── docs/                 # Supporting project documentation
+├── package.json          # Node scripts and dependencies
+└── README.md             # Project documentation
+```
 
-## Setup
+## How to Run
 
-### 1. Install Node dependencies
+### Prerequisites
+
+- Node.js and npm
+- Python 3.x
+- pip
+
+### 1. Clone the Repository
+
+```bash
+git clone <your-repository-url>
+cd "5. Sales Analyses Website 4"
+```
+
+### 2. Install Node Dependencies
 
 ```bash
 npm install
 ```
 
-### 2. Install Python dependencies
+### 3. Install Python Dependencies
 
 ```bash
-python -m pip install -r python/requirements.txt
+python3 -m pip install -r python/requirements.txt
 ```
 
-If your machine uses `py` or `python3`, use that command instead.
-If `python` is not on PATH when you start the app, set `PYTHON_BIN` before running:
+If `python3` is not available on your system, use `python` instead.
+
+### 4. Optional Environment Configuration
+
+To enable AI-assisted report copy and planning features:
 
 ```bash
-set PYTHON_BIN=py
+export OPENAI_API_KEY=your_api_key_here
 ```
 
-If the launcher still does not find Python, you can point `PYTHON_BIN` to the full interpreter path, such as `C:\Users\<you>\AppData\Local\Programs\Python\Python312\python.exe`.
-
-To enable AI-generated report copy for PowerPoint exports, set `OPENAI_API_KEY` before starting the app. You can also override the model with `OPENAI_REPORT_MODEL` if needed.
-
-To enable the optional LLM planner for the new Ask Your Data assistant, the same `OPENAI_API_KEY` is used. You can override that planner model with `OPENAI_DATA_QA_MODEL`. The final numbers still come from computed CSV results, not from the LLM directly.
-
-### 3. Optional: enable Postgres persistence
-
-If you want saved datasets and chat history to survive server restarts, configure Postgres before starting the app.
-
-Set `DATABASE_URL`, for example:
+To enable persistent dataset and chat storage with PostgreSQL:
 
 ```bash
 export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sales_analysis_platform
 ```
 
-The backend will auto-create the `datasets` and `chat_messages` tables at startup. A reference schema is also available in `backend/schema.sql`.
+The application can still run without PostgreSQL. In that case, persistence falls back to in-memory sessions.
 
-For local development, the backend also auto-loads `.env.local` if it exists.
-
-If `DATABASE_URL` is not set, the app still works, but dataset recall falls back to in-memory sessions only.
-
-### 4. Start the app
+### 5. Start the Application
 
 ```bash
 npm start
 ```
 
-Open:
+### 6. Open in Browser
 
 ```text
 http://localhost:3000
 ```
 
-## How It Works
+### 7. Test with Sample Data
 
-1. Upload a CSV or Excel file.
-2. The app inspects the file and suggests useful analysis columns and chart types.
-3. Choose cleaning and analysis options.
-4. Run analysis to get:
-   - KPIs
-   - charts
-   - cleaned data preview
-   - business insights
-   - problem statements
-5. Use the Mock AI Graph Builder to create an interactive chart from any X/Y combination.
-6. Download a PowerPoint report with insights, charts, recommendations, and optional AI-generated executive copy.
-7. Use Ask Your Data to ask plain-English questions such as:
-   - top 10 salesmen this year
-   - which month had the highest sales
-   - total profit in California
-   - forecast next month sales
-8. With Postgres enabled, you can later ask about a saved dataset without uploading it again, for example:
-   - top 10 salesman from superstore sample dataset
-   - use my latest dataset and forecast next month sales
+Use the sample dataset included in the repository:
 
-## Example Dataset
+```text
+sample-data/sales_sample.csv
+```
 
-Use `sample-data/sales_sample.csv` to test the platform.
+## Future Improvements
 
-## Notes
+- Add a more advanced interactive dashboard for executive-level reporting.
+- Improve forecasting accuracy with additional feature engineering and model selection.
+- Add model comparison reports to benchmark multiple forecasting approaches.
+- Deploy the application as a web app for easier access and collaboration.
+- Introduce user authentication and dataset history management for team usage.
 
-- Excel support includes `.xlsx` and `.xls`.
-- Generated charts and cleaned CSV files are stored in `backend/outputs/`.
-- Uploaded temp files are stored in `backend/uploads/` and cleaned up after processing.
-- If the backend is not running, CSV files still get a local browser-side inspection and analysis fallback.
-- Ask Your Data currently accepts CSV uploads for question answering.
-- When Postgres is enabled, uploaded datasets and chat messages are stored persistently.
-- Saved dataset recall is scoped by a browser-specific client key in local storage.
-- Ranking, totals, and month/year questions are answered deterministically from the CSV.
-- Forecast answers now use a trained lag-feature forecasting model when enough history exists and the backtest is reasonable, with a trend fallback when the dataset is too small or noisy.
-- Forecast responses include the method and a simple confidence signal so you can judge how reliable the prediction is.
+## License
+
+This project is intended for educational, portfolio, and demonstration purposes unless otherwise specified by the repository owner.
